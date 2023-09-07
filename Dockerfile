@@ -21,10 +21,19 @@ COPY start.sh /start.sh
 # Give execute permissions to the start script
 RUN chmod +x /start.sh
 
-# set permissions for project
+# Set permissions for project
 RUN chown -R www-data:www-data /var/www
 
+# Set the working directory to the Laravel app directory
 WORKDIR /var/www/laravel-app/
 
+# Install PHP dependencies using Composer
+RUN composer install --no-scripts --no-autoloader --no-dev
+
+# Optimize Composer for production
+RUN composer dump-autoload --optimize
+
+# Set the command to run your start script
 CMD ["/start.sh"]
+
 

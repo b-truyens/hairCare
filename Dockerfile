@@ -32,6 +32,7 @@ RUN composer install --no-scripts --no-autoloader --no-dev
 
 # Optimize Composer for production
 RUN composer dump-autoload --optimize
+RUN php artisan key:generate
 
 # Set the command to run your start script
 CMD ["/start.sh"]
